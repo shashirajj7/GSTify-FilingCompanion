@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>GSTify.AI - Dashboard Overview</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "secondary": "#617589",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased overflow-hidden">
+    <div class="flex h-screen w-full bg-white dark:bg-slate-900 overflow-hidden">
+        <!-- Sidebar -->
+        <div
+            class="hidden md:flex flex-col w-64 h-full border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex-shrink-0">
+            <!-- User Profile -->
+            <div class="p-6 border-b border-slate-100 dark:border-slate-800">
+                <div class="flex items-center gap-3">
+                    <div class="relative w-10 h-10 rounded-full bg-slate-200 overflow-hidden"
+                        data-alt="User profile picture placeholder">
+                        <img alt="Profile" class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDH5wVsK2y2um78dFxlTHjQWLL0GYjwcimlHNbLMtLKCmt10C2AO6LRSMeNTRMUQ-SwDaRGwyUK0OjknhdZunXntPtv5vsYzxApn2c8eFBh0IRR0nk8iV4lBvujNtB04GgSRG8UrEMe2lVjsqH5sOCbd6A2gSE2h8qoLmUVT9N2d2VN-LXkjT32n5F6yf4S0SntJs30UjTjBLkMegpzrYRsP8_9Ten-QtvX-G_Pzs7OYm5mQui8HTSsKWOjEK0Cy-BEkIwT5HhCkjg" />
+                    </div>
+                    <div class="flex flex-col">
+                        <a href="index.html"
+                            class="text-slate-900 dark:text-white text-sm font-bold hover:text-primary transition-colors">GSTify.AI
+                            Pro</a>
+                        <p class="text-secondary text-xs font-medium">Business Admin</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Navigation -->
+            <div class="flex-1 overflow-y-auto py-6 px-4 flex flex-col gap-2">
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary"
+                    href="dashboard.html">
+                    <span class="material-symbols-outlined text-[20px] fill-1">dashboard</span>
+                    <span class="text-sm font-bold">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-secondary hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-colors"
+                    href="invoices.html">
+                    <span class="material-symbols-outlined text-[20px]">description</span>
+                    <span class="text-sm font-medium">Invoices</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-secondary hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-colors"
+                    href="validation.html">
+                    <span class="material-symbols-outlined text-[20px]">check_circle</span>
+                    <span class="text-sm font-medium">Validation</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-secondary hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-colors"
+                    href="fraud_detection.html">
+                    <span class="material-symbols-outlined text-[20px]">shield</span>
+                    <span class="text-sm font-medium">Fraud Detection & GSTR-1</span>
+                </a>
+                <div class="pt-4 mt-auto">
+                    <p class="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">System</p>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-secondary hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-colors"
+                        href="javascript:void(0)">
+                        <span class="material-symbols-outlined text-[20px]">settings</span>
+                        <span class="text-sm font-medium">Settings</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Upgrade CTA -->
+            <div class="p-4 border-t border-slate-100 dark:border-slate-800">
+                <button
+                    class="flex w-full items-center justify-center gap-2 rounded-lg h-10 px-4 bg-primary hover:bg-blue-600 text-white text-sm font-bold transition-colors shadow-sm shadow-blue-200 dark:shadow-none">
+                    <span class="material-symbols-outlined text-[18px]">upgrade</span>
+                    <span>Upgrade Plan</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col h-full bg-slate-50 dark:bg-[#0A1017] overflow-hidden relative">
+            <!-- Mobile Header -->
+            <div
+                class="md:hidden flex items-center justify-between p-4 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 z-10">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">auto_awesome_mosaic</span>
+                    <a href="index.html" class="font-bold text-lg">GSTify.AI</a>
+                </div>
+                <button class="text-slate-600">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+            </div>
+
+            <!-- Top Header Desktop -->
+            <header
+                class="hidden md:flex items-center justify-between border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-[#1A2632] px-8 py-4 sticky top-0 z-50">
+                <div class="flex-1 max-w-lg relative">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+                    <input type="text" placeholder="Search invoices, GSTIN..."
+                        class="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 py-2 text-sm text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary focus:outline-none placeholder-slate-400" />
+                </div>
+
+                <div class="flex items-center justify-end flex-1 gap-4">
+                    <button onclick="window.location.href='validation.html'"
+                        class="flex items-center justify-center gap-2 rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold hover:bg-blue-600 transition-colors shadow-sm">
+                        <span class="material-symbols-outlined text-[18px]">add</span>
+                        <span>New Invoice</span>
+                    </button>
+                    <button
+                        class="size-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <div class="bg-center bg-no-repeat bg-cover rounded-full size-10 border border-slate-200 dark:border-slate-700 cursor-pointer"
+                        data-alt="User profile picture"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBJCLN15VUsxgUz2zRDh-2RXamHjlzpBKAMzCtkJaSa8uwj99-daoY1aYgC6qN6Ii5QGwWWssewjvlLvBMnPdKpgZl5qSwmzgrZoPa72Y-nqCMgRt-O0_i2YAbHlrFOurpcyomv8U1k99NtfpEEW9uCQ35eU4TNPOte0BnPz5504Zvnp-KI5RbamAgpoX1IPkGmw3M6Vc8u1Oi8dRCsmyRIInfRBPFQhCwpjOFEKxh-1prIGzJYGKe7uIN9e4bQ2X3xnzYa3Oc7P18");'>
+                    </div>
+                </div>
+            </header>
+
+            <div class="flex-1 overflow-y-auto w-full p-6 lg:p-10">
+                <div class="max-w-7xl mx-auto flex flex-col gap-6">
+
+                    <div class="flex flex-col gap-1 mb-2">
+                        <h2 class="text-slate-900 dark:text-white text-3xl font-extrabold tracking-tight">Welcome back,
+                            Admin 👋</h2>
+                        <p class="text-secondary text-sm md:text-base">Here is what's happening with your GST compliance
+                            today.</p>
+                    </div>
+
+                    <!-- 4 Stat Cards Row -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+                        <!-- Stat 1 -->
+                        <div
+                            class="bg-white dark:bg-[#1A2632] rounded-xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col transition-all hover:shadow-md hover:border-blue-200">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span
+                                    class="material-symbols-outlined text-blue-500 bg-blue-50 dark:bg-blue-900/40 p-2 rounded-lg text-2xl">receipt_long</span>
+                                <span class="text-sm font-bold text-slate-500 dark:text-slate-400">Total Invoices</span>
+                            </div>
+                            <div class="flex items-end justify-between">
+                                <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white">1,248</h3>
+                                <span class="flex items-center text-xs font-bold text-green-600 mb-1">
+                                    <span class="material-symbols-outlined text-[14px]">arrow_upward</span> 12%
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Stat 2 -->
+                        <div
+                            class="bg-white dark:bg-[#1A2632] rounded-xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col transition-all hover:shadow-md hover:border-green-200">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span
+                                    class="material-symbols-outlined text-green-500 bg-green-50 dark:bg-green-900/40 p-2 rounded-lg text-2xl">check_circle</span>
+                                <span class="text-sm font-bold text-slate-500 dark:text-slate-400">Processed</span>
+                            </div>
+                            <div class="flex items-end justify-between">
+                                <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white">1,156</h3>
+                                <span class="flex items-center text-xs font-bold text-green-600 mb-1">
+                                    <span class="material-symbols-outlined text-[14px]">arrow_upward</span> 8%
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Stat 3 -->
+                        <div
+                            class="bg-white dark:bg-[#1A2632] rounded-xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col transition-all hover:shadow-md hover:border-amber-200">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span
+                                    class="material-symbols-outlined text-amber-500 bg-amber-50 dark:bg-amber-900/40 p-2 rounded-lg text-2xl">pending_actions</span>
+                                <span class="text-sm font-bold text-slate-500 dark:text-slate-400">Needs Review</span>
+                            </div>
+                            <div class="flex items-end justify-between">
+                                <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white">92</h3>
+                                <span class="flex items-center text-xs font-bold text-red-500 mb-1">
+                                    <span class="material-symbols-outlined text-[14px]">arrow_upward</span> 5%
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Stat 4 -->
+                        <div
+                            class="bg-white dark:bg-[#1A2632] rounded-xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col transition-all hover:shadow-md hover:border-purple-200">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span
+                                    class="material-symbols-outlined text-purple-500 bg-purple-50 dark:bg-purple-900/40 p-2 rounded-lg text-2xl">account_balance</span>
+                                <span class="text-sm font-bold text-slate-500 dark:text-slate-400">Tax Claimed</span>
+                            </div>
+                            <div class="flex items-end justify-between">
+                                <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white">₹2.4M</h3>
+                                <div class="text-xs font-medium text-slate-400 mb-1">This month</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Dashboard Split layout: Charts + Activity -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Left Chart Box -->
+                        <div
+                            class="lg:col-span-2 bg-white dark:bg-[#1A2632] rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 overflow-hidden">
+                            <div class="flex items-center justify-between mb-8">
+                                <h3 class="font-bold border-b-2 border-primary pb-1">Extraction Accuracy</h3>
+                                <select
+                                    class="bg-slate-50 dark:bg-slate-800 border-none text-xs rounded-lg px-3 py-1.5 focus:ring-0 cursor-pointer">
+                                    <option>Last 30 Days</option>
+                                    <option>This Quarter</option>
+                                    <option>This Year</option>
+                                </select>
+                            </div>
+                            <!-- Mocking a bar/line chart with CSS -->
+                            <div
+                                class="h-64 flex items-end justify-between gap-2 px-2 pb-6 border-b border-slate-100 dark:border-slate-700 relative">
+                                <!-- Guide lines -->
+                                <div class="absolute w-full h-px bg-slate-100 dark:bg-slate-800 bottom-1/4"></div>
+                                <div class="absolute w-full h-px bg-slate-100 dark:bg-slate-800 bottom-2/4"></div>
+                                <div class="absolute w-full h-px bg-slate-100 dark:bg-slate-800 bottom-3/4"></div>
+
+                                <!-- Bars representing accuracy -->
+                                <div
+                                    class="w-1/12 bg-blue-100 dark:bg-blue-900/30 rounded-t-sm h-[82%] relative group cursor-pointer hover:bg-blue-200 transition-colors">
+                                    <div
+                                        class="absolute w-full bg-primary rounded-t-sm h-[70%] bottom-0 group-hover:bg-blue-600 transition-all">
+                                    </div>
+                                </div>
+                                <div
+                                    class="w-1/12 bg-blue-100 dark:bg-blue-900/30 rounded-t-sm h-[85%] relative group cursor-pointer hover:bg-blue-200 transition-colors">
+                                    <div
+                                        class="absolute w-full bg-primary rounded-t-sm h-[75%] bottom-0 group-hover:bg-blue-600 transition-all">
+                                    </div>
+                                </div>
+                                <div
+                                    class="w-1/12 bg-blue-100 dark:bg-blue-900/30 rounded-t-sm h-[88%] relative group cursor-pointer hover:bg-blue-200 transition-colors">
+                                    <div
+                                        class="absolute w-full bg-primary rounded-t-sm h-[80%] bottom-0 group-hover:bg-blue-600 transition-all">
+                                    </div>
+                                </div>
+                                <div
+                                    class="w-1/12 bg-blue-100 dark:bg-blue-900/30 rounded-t-sm h-[92%] relative group cursor-pointer hover:bg-blue-200 transition-colors">
+                                    <div
+                                        class="absolute w-full bg-primary rounded-t-sm h-[83%] bottom-0 group-hover:bg-blue-600 transition-all">
+                                    </div>
+                                </div>
+                                <div
+                                    class="w-1/12 bg-blue-100 dark:bg-blue-900/30 rounded-t-sm h-[94%] relative group cursor-pointer hover:bg-blue-200 transition-colors">
+                                    <div
+                                        class="absolute w-full bg-primary rounded-t-sm h-[88%] bottom-0 group-hover:bg-blue-600 transition-all">
+                                    </div>
+                                </div>
+                                <div
+                                    class="w-1/12 bg-blue-100 dark:bg-blue-900/30 rounded-t-sm h-[97%] relative group cursor-pointer hover:bg-blue-200 transition-colors">
+                                    <div
+                                        class="absolute w-full bg-primary rounded-t-sm h-[92%] bottom-0 group-hover:bg-blue-600 transition-all">
+                                    </div>
+                                    <div
+                                        class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs py-1 px-2 rounded font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                                        99.8%</div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between mt-4 text-xs font-medium text-slate-400 px-2">
+                                <span>May</span>
+                                <span>Jun</span>
+                                <span>Jul</span>
+                                <span>Aug</span>
+                                <span>Sep</span>
+                                <span>Oct</span>
+                            </div>
+                        </div>
+
+                        <!-- Right Activity Box -->
+                        <div
+                            class="bg-white dark:bg-[#1A2632] rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-0 flex flex-col">
+                            <div
+                                class="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                                <h3 class="font-bold">Recent Activity</h3>
+                                <a href="invoices.html" class="text-xs text-primary font-bold hover:underline">View
+                                    All</a>
+                            </div>
+                            <div class="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
+
+                                <!-- Activity item -->
+                                <div class="flex gap-4 items-start">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0">
+                                        <span class="material-symbols-outlined text-[16px]">check</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-slate-900 dark:text-white font-medium">Auto-validated
+                                            <span class="font-bold">24 invoices</span> from Reliance Jio.</p>
+                                        <p class="text-xs text-slate-400 mt-1">10 minutes ago</p>
+                                    </div>
+                                </div>
+
+                                <!-- Activity item -->
+                                <div class="flex gap-4 items-start">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
+                                        <span class="material-symbols-outlined text-[16px]">error</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-slate-900 dark:text-white font-medium">Flagged <span
+                                                class="font-bold">INV-9281</span> for HSN code mismatch.</p>
+                                        <p class="text-xs text-slate-400 mt-1">2 hours ago</p>
+                                    </div>
+                                </div>
+
+                                <!-- Activity item -->
+                                <div class="flex gap-4 items-start">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center shrink-0">
+                                        <span class="material-symbols-outlined text-[16px]">cloud_upload</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-slate-900 dark:text-white font-medium">Batch upload of
+                                            150 PDFs completed.</p>
+                                        <p class="text-xs text-slate-400 mt-1">Yesterday at 4:32 PM</p>
+                                    </div>
+                                </div>
+
+                                <!-- Activity item -->
+                                <div class="flex gap-4 items-start">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center shrink-0">
+                                        <span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-slate-900 dark:text-white font-medium">GSTR-1 Draft CSV
+                                            generated for September.</p>
+                                        <p class="text-xs text-slate-400 mt-1">Oct 5 at 9:00 AM</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="mt-4 text-center border-t border-slate-200 dark:border-slate-800 pt-6 pb-2">
+                        <p class="text-xs text-slate-500 dark:text-slate-500">
+                            &copy; 2023 GSTify.AI. <a href="javascript:void(0)"
+                                class="text-primary hover:underline ml-2">Help &amp; Support</a>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
