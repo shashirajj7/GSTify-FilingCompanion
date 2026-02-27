@@ -4,10 +4,18 @@ import { Link, useNavigate } from 'react-router-dom';
 const Login = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState('');
 
     const handleLogin = (e) => {
         e.preventDefault();
         // Simulate login and redirect to dashboard
+        let name = 'Admin';
+        if (email) {
+            name = email.split('@')[0];
+            name = name.charAt(0).toUpperCase() + name.slice(1);
+        }
+        localStorage.setItem('userName', name);
+        localStorage.setItem('loginType', 'login');
         navigate('/dashboard');
     };
 
@@ -32,20 +40,10 @@ const Login = () => {
                         Join thousands of businesses who trust GSTify.AI for 99.8% accurate invoice extraction and GSTR-1 filing.
                     </p>
 
-                    <div className="flex items-center gap-3">
-                        <div className="flex -space-x-3">
-                            <img className="w-10 h-10 rounded-full border-2 border-t_navy object-cover" src="https://i.pravatar.cc/100?img=1" alt="Avatar" />
-                            <img className="w-10 h-10 rounded-full border-2 border-t_navy object-cover" src="https://i.pravatar.cc/100?img=2" alt="Avatar" />
-                            <img className="w-10 h-10 rounded-full border-2 border-t_navy object-cover" src="https://i.pravatar.cc/100?img=3" alt="Avatar" />
-                        </div>
-                        <div className="text-sm font-medium text-blue-200">
-                            Trusted by 500+ Indian Businesses
-                        </div>
-                    </div>
                 </div>
 
                 <div className="relative z-10 text-sm text-blue-300">
-                    &copy; 2023 GSTify.AI. All rights reserved.
+                    &copy; 2026 GSTify.AI. All rights reserved.
                 </div>
             </div>
 
@@ -92,6 +90,8 @@ const Login = () => {
                                 type="email"
                                 className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-colors text-sm"
                                 placeholder="Enter your email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 required
                             />
                         </div>

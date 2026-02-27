@@ -191,7 +191,7 @@ const Export = () => {
                             {/* Footer */}
                             <div className="mt-8 text-center border-t border-slate-200 dark:border-slate-800 pt-6 pb-2">
                                 <p className="text-xs text-slate-500 dark:text-slate-500">
-                                    &copy; 2023 GSTify.AI. All operations are logged. <Link to="/contact" className="text-primary hover:underline ml-2">Help &amp; Support</Link>
+                                    &copy; 2026 GSTify.AI. All operations are logged. <Link to="/contact" className="text-primary hover:underline ml-2">Help &amp; Support</Link>
                                 </p>
                             </div>
 

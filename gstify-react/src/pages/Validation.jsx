@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from '../components/layout/Sidebar';
 import Header from '../components/layout/Header';
 
 const Validation = () => {
     const navigate = useNavigate();
+
+    // State to hold the uploaded image data
+    const [uploadedImage, setUploadedImage] = useState(null);
+    const [documentName, setDocumentName] = useState('INV-2023-894.pdf');
+
+    useEffect(() => {
+        const storedImage = localStorage.getItem('uploadedInvoiceImage');
+        const storedName = localStorage.getItem('uploadedInvoiceName');
+
+        if (storedImage) {
+            setUploadedImage(storedImage);
+        }
+        if (storedName) {
+            setDocumentName(storedName);
+        }
+    }, []);
 
     return (
         <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased overflow-hidden">
@@ -26,7 +42,7 @@ const Validation = () => {
                             </Link>
                             <div>
                                 <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                                    INV-2023-894.pdf
+                                    {documentName}
                                     <span className="px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-500 text-[10px] font-bold uppercase tracking-wide border border-yellow-200 dark:border-yellow-800/50">Needs Review</span>
                                 </h2>
                                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Uploaded Oct 24, 2023 at 10:45 AM • TechSolutions Pvt Ltd</p>
@@ -65,64 +81,8 @@ const Validation = () => {
 
                             {/* Document Image */}
                             <div className="flex-1 overflow-auto p-4 lg:p-8 flex items-start justify-center no-scrollbar">
-                                <div className="bg-white shadow-xl rounded-sm w-full max-w-[600px] min-h-[600px] lg:min-h-[800px] relative overflow-hidden" data-alt="Scanned invoice document preview">
-                                    {/* Simulated Document Content */}
-                                    <div className="p-8 space-y-6 opacity-90 pointer-events-none select-none">
-                                        <div className="flex justify-between items-start border-b pb-4 border-gray-200">
-                                            <div>
-                                                <div className="h-6 w-32 bg-gray-800 mb-2"></div>
-                                                <div className="h-3 w-48 bg-gray-400"></div>
-                                                <div className="h-3 w-40 bg-gray-400 mt-1"></div>
-                                            </div>
-                                            <div className="text-right">
-                                                <div className="h-8 w-24 bg-blue-100 ml-auto mb-2"></div>
-                                                <div className="h-3 w-32 bg-gray-400 ml-auto"></div>
-                                            </div>
-                                        </div>
-
-                                        <div className="grid grid-cols-2 gap-8">
-                                            <div className="space-y-2">
-                                                <div className="h-4 w-20 bg-gray-300"></div>
-                                                <div className="h-3 w-full bg-gray-100"></div>
-                                                <div className="h-3 w-2/3 bg-gray-100"></div>
-                                            </div>
-                                            <div className="space-y-2">
-                                                <div className="h-4 w-20 bg-gray-300"></div>
-                                                <div className="h-3 w-full bg-gray-100"></div>
-                                                <div className="h-3 w-2/3 bg-gray-100"></div>
-                                            </div>
-                                        </div>
-
-                                        <div className="pt-4">
-                                            <div className="w-full h-8 bg-gray-200 mb-2"></div>
-                                            <div className="w-full h-4 bg-gray-50 mb-1"></div>
-                                            <div className="w-full h-4 bg-gray-50 mb-1"></div>
-                                            <div className="w-full h-4 bg-gray-50 mb-1"></div>
-                                        </div>
-
-                                        <div className="flex justify-end pt-4">
-                                            <div className="w-48 space-y-2">
-                                                <div className="flex justify-between">
-                                                    <div className="h-3 w-12 bg-gray-300"></div>
-                                                    <div className="h-3 w-16 bg-gray-300"></div>
-                                                </div>
-                                                <div className="flex justify-between">
-                                                    <div className="h-3 w-12 bg-gray-300"></div>
-                                                    <div className="h-3 w-16 bg-gray-300"></div>
-                                                </div>
-                                                <div className="h-px bg-gray-300 my-2"></div>
-                                                <div className="flex justify-between">
-                                                    <div className="h-4 w-16 bg-gray-800"></div>
-                                                    <div className="h-4 w-20 bg-gray-800"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* AI Overlay Highlight (Simulated) */}
-                                    <div className="absolute top-[260px] right-[20px] lg:right-[40px] w-[150px] lg:w-[180px] h-[80px] border-2 border-primary bg-primary/10 rounded pointer-events-none">
-                                        <div className="absolute -top-3 right-0 bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-t">Total</div>
-                                    </div>
+                                <div className="bg-white shadow-xl rounded-sm w-full max-w-[600px] relative overflow-hidden flex items-center justify-center p-2 border border-slate-200 dark:border-slate-800" data-alt="Scanned invoice document preview">
+                                    <img src={uploadedImage || "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"} alt="Uploaded Invoice Preview" className="w-full h-auto object-contain rounded-sm" />
                                 </div>
                             </div>
                         </div>
@@ -147,7 +107,7 @@ const Validation = () => {
                                             </div>
                                         </div>
                                         <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-                                            Intrastate transaction detected (Maharashtra to Maharashtra). CGST and SGST have been applied correctly at 9% each based on HSN code logic. GSTINs for both parties are active.
+                                            Successfully extracted data from the uploaded photo <strong>{documentName}</strong>. Validated GSTINs, extracted line items, and verified tax calculations based on the document text.
                                         </p>
                                     </div>
                                 </div>

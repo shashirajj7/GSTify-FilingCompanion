@@ -10,9 +10,19 @@ const Upload = () => {
     const [isUploading, setIsUploading] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(0);
 
-    const simulateUpload = () => {
+    const simulateUpload = (file) => {
         setIsUploading(true);
         setUploadProgress(0);
+
+        // Read file and store in localStorage
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                localStorage.setItem('uploadedInvoiceImage', reader.result);
+                localStorage.setItem('uploadedInvoiceName', file.name);
+            };
+            reader.readAsDataURL(file);
+        }
 
         const interval = setInterval(() => {
             setUploadProgress(prev => {
@@ -31,7 +41,7 @@ const Upload = () => {
 
     const handleFileChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
-            simulateUpload();
+            simulateUpload(e.target.files[0]);
         }
     };
 
@@ -49,7 +59,7 @@ const Upload = () => {
         e.preventDefault();
         setIsDragging(false);
         if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-            simulateUpload();
+            simulateUpload(e.dataTransfer.files[0]);
         }
     };
 

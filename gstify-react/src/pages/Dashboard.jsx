@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from '../components/layout/Sidebar';
 import Header from '../components/layout/Header';
@@ -6,11 +6,31 @@ import Header from '../components/layout/Header';
 const Dashboard = () => {
     const navigate = useNavigate();
     const fileInputRef = useRef(null);
+    const [greeting, setGreeting] = useState('Welcome back, Admin 👋');
+
+    useEffect(() => {
+        const userName = localStorage.getItem('userName') || 'Admin';
+        const loginType = localStorage.getItem('loginType') || 'login';
+
+        if (loginType === 'signup') {
+            setGreeting(`Welcome, ${userName} 👋`);
+        } else {
+            setGreeting(`Welcome back, ${userName} 👋`);
+        }
+    }, []);
 
     const handleFileChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
-            console.log("Files selected from Dashboard:", e.target.files);
-            navigate('/validation');
+            const file = e.target.files[0];
+            const reader = new FileReader();
+
+            reader.onloadend = () => {
+                localStorage.setItem('uploadedInvoiceImage', reader.result);
+                localStorage.setItem('uploadedInvoiceName', file.name);
+                navigate('/validation');
+            };
+
+            reader.readAsDataURL(file);
         }
     };
 
@@ -32,7 +52,7 @@ const Dashboard = () => {
 
                             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-2">
                                 <div className="flex flex-col gap-1">
-                                    <h2 className="text-slate-900 dark:text-white text-3xl font-extrabold tracking-tight">Welcome back, Admin 👋</h2>
+                                    <h2 className="text-slate-900 dark:text-white text-3xl font-extrabold tracking-tight">{greeting}</h2>
                                     <p className="text-secondary text-sm md:text-base">Here is what's happening with your GST compliance today.</p>
                                 </div>
                                 <div className="flex gap-3">
@@ -256,7 +276,7 @@ const Dashboard = () => {
                             {/* Footer */}
                             <div className="mt-4 text-center border-t border-slate-200 dark:border-slate-800 pt-6 pb-2">
                                 <p className="text-xs text-slate-500 dark:text-slate-500">
-                                    &copy; 2023 GSTify.AI. <Link to="/contact" className="text-primary hover:underline ml-2">Help &amp; Support</Link>
+                                    &copy; 2026 GSTify.AI. <Link to="/contact" className="text-primary hover:underline ml-2">Help &amp; Support</Link>
                                 </p>
                             </div>
 

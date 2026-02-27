@@ -1,10 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/layout/Sidebar';
 import Header from '../components/layout/Header';
 
 const Settings = () => {
     const [activeTab, setActiveTab] = useState('profile');
     const [isAnnual, setIsAnnual] = useState(true);
+
+    // User Profile State
+    const [firstName, setFirstName] = useState('Business');
+    const [lastName, setLastName] = useState('Admin');
+    const [email, setEmail] = useState('admin@gstify.ai');
+
+    useEffect(() => {
+        const storedName = localStorage.getItem('userName');
+        if (storedName) {
+            // Simple split logic if it's a full name
+            const nameParts = storedName.split(' ');
+            setFirstName(nameParts[0]);
+            if (nameParts.length > 1) {
+                setLastName(nameParts.slice(1).join(' '));
+            } else {
+                setLastName('');
+            }
+            setEmail(`${storedName.toLowerCase().replace(/\s+/g, '')}@gstify.ai`);
+        }
+    }, []);
 
     return (
         <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased overflow-hidden">
@@ -63,10 +83,10 @@ const Settings = () => {
                                             <div>
                                                 <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Profile Information</h3>
                                                 <div className="flex items-center gap-6 mb-6">
-                                                    <div className="w-20 h-20 rounded-full bg-slate-200 overflow-hidden relative group">
-                                                        <img alt="Profile" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDH5wVsK2y2um78dFxlTHjQWLL0GYjwcimlHNbLMtLKCmt10C2AO6LRSMeNTRMUQ-SwDaRGwyUK0OjknhdZunXntPtv5vsYzxApn2c8eFBh0IRR0nk8iV4lBvujNtB04GgSRG8UrEMe2lVjsqH5sOCbd6A2gSE2h8qoLmUVT9N2d2VN-LXkjT32n5F6yf4S0SntJs30UjTjBLkMegpzrYRsP8_9Ten-QtvX-G_Pzs7OYm5mQui8HTSsKWOjEK0Cy-BEkIwT5HhCkjg" />
-                                                        <div className="absolute inset-0 bg-black/50 hidden group-hover:flex items-center justify-center cursor-pointer transition-all">
-                                                            <span className="material-symbols-outlined text-white text-2xl">photo_camera</span>
+                                                    <div className="w-20 h-20 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 font-bold flex items-center justify-center text-3xl border border-blue-200 dark:border-blue-800 shadow-sm relative group select-none">
+                                                        <span>{firstName ? firstName.charAt(0).toUpperCase() : 'A'}</span>
+                                                        <div className="absolute inset-0 bg-black/50 rounded-full hidden group-hover:flex items-center justify-center cursor-pointer transition-all">
+                                                            <span className="material-symbols-outlined text-white text-[24px]">photo_camera</span>
                                                         </div>
                                                     </div>
                                                     <div>
@@ -77,15 +97,15 @@ const Settings = () => {
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                     <div>
                                                         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">First Name</label>
-                                                        <input type="text" defaultValue="Business" className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2.5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
+                                                        <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2.5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
                                                     </div>
                                                     <div>
                                                         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Last Name</label>
-                                                        <input type="text" defaultValue="Admin" className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2.5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
+                                                        <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2.5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
                                                     </div>
                                                     <div className="md:col-span-2">
                                                         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Email Address</label>
-                                                        <input type="email" defaultValue="admin@gstify.ai" className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2.5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
+                                                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2.5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
                                                     </div>
                                                     <div className="md:col-span-2">
                                                         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Company Name (GSTIN Registered)</label>
