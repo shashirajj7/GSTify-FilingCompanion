@@ -1,0 +1,313 @@
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Sidebar from '../components/layout/Sidebar';
+import Header from '../components/layout/Header';
+
+const FraudDetection = () => {
+    const navigate = useNavigate();
+
+    const handleDownloadCSV = () => {
+        const headers = ['Invoice Number', 'Date', 'Customer GSTIN', 'Taxable Value', 'Tax Amount', 'Status'];
+        const data = [
+            ['INV-2023-890', '20 Oct 2023', '27AABCT1234A1Z5', '150000.00', '27000.00', 'Validated'],
+            ['INV-2023-891', '21 Oct 2023', '29XYZE9876L1Z2', '45000.00', '5400.00', 'Flagged'],
+            ['INV-2023-892', '22 Oct 2023', '07BBDPY4321P1Z9', '210000.00', '37800.00', 'Validated'],
+            ['INV-2023-894', '24 Oct 2023', '27XYPE9876L1Z2', '150000.00', '27000.00', 'Validated'],
+            ['INV-2023-895', '24 Oct 2023', 'Cancelled GSTIN', '12500.00', '2250.00', 'Flagged'],
+        ];
+
+        const csvContent = [
+            headers.join(','),
+            ...data.map(row => row.join(','))
+        ].join('\n');
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'gstr1_draft_oct2023.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    return (
+        <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased overflow-hidden">
+            <div className="flex h-screen w-full bg-slate-50 dark:bg-slate-900 overflow-hidden">
+
+                {/* Sidebar */}
+                <Sidebar />
+
+                {/* Main Content Area */}
+                <main className="flex-1 flex flex-col h-full bg-slate-50 dark:bg-[#0A1017] overflow-hidden relative">
+
+                    <Header />
+
+                    <div className="flex-1 overflow-y-auto w-full">
+                        <div className="max-w-7xl mx-auto p-6 lg:p-10 flex flex-col gap-6">
+
+                            {/* Title Bar */}
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2">
+                                <div>
+                                    <h2 className="text-slate-900 dark:text-white text-2xl font-bold tracking-tight flex items-center gap-3">
+                                        Fraud Detection & Compliance
+                                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400 border border-green-200 dark:border-green-800">
+                                            <span className="size-2 rounded-full bg-green-500 relative">
+                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                            </span>
+                                            System Operational
+                                        </span>
+                                    </h2>
+                                    <p className="text-secondary text-sm mt-1">AI-powered risk auditing and draft generation for your current month.</p>
+                                </div>
+                            </div>
+
+                            {/* Risk Overview Section */}
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                {/* Risk Meter Component */}
+                                <div className="bg-white dark:bg-[#1A2632] rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 lg:col-span-1 flex flex-col justify-between relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/5 dark:bg-green-500/10 rounded-bl-full pointer-events-none"></div>
+                                    <div>
+                                        <div className="flex items-center justify-between mb-6">
+                                            <h3 className="font-bold text-slate-900 dark:text-white">Overall Risk Meter</h3>
+                                            <span className="material-symbols-outlined text-green-500 bg-green-50 dark:bg-green-900/20 p-1.5 rounded-lg">health_and_safety</span>
+                                        </div>
+
+                                        <div className="flex flex-col items-center justify-center py-4">
+                                            <div className="relative w-40 h-20 overflow-hidden mb-2">
+                                                {/* Semi-circle background */}
+                                                <div className="absolute top-0 left-0 w-40 h-40 rounded-full border-[16px] border-slate-100 dark:border-slate-800 box-border"></div>
+                                                {/* Semi-circle gradient fill representing 'Low' risk (e.g. 15%) */}
+                                                <div className="absolute top-0 left-0 w-40 h-40 rounded-full border-[16px] border-transparent border-t-green-500 border-r-green-500 box-border rotate-[-135deg] transition-transform duration-1000 shadow-[0_0_15px_rgba(34,197,94,0.5)]"></div>
+                                            </div>
+                                            <div className="text-center -mt-6 bg-white dark:bg-[#1A2632] px-4 rounded-full">
+                                                <h2 className="text-3xl font-extrabold text-green-500 drop-shadow-sm">Low</h2>
+                                                <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mt-1">15/100 Score</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 text-center flex justify-between">
+                                        <div className="text-center">
+                                            <p className="text-xl font-bold text-slate-900 dark:text-white">1,248</p>
+                                            <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">Processed</p>
+                                        </div>
+                                        <div className="text-center">
+                                            <p className="text-xl font-bold text-amber-500">2</p>
+                                            <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">Flagged</p>
+                                        </div>
+                                        <div className="text-center">
+                                            <p className="text-xl font-bold text-green-500">98%</p>
+                                            <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">Compliant</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Flag List with Severity Tags */}
+                                <div className="bg-white dark:bg-[#1A2632] rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-0 lg:col-span-2 flex flex-col">
+                                    <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                                        <h3 className="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                            <span className="material-symbols-outlined text-amber-500 text-[20px]">flag</span>
+                                            Recent Anomalies &amp; Flags
+                                        </h3>
+                                        <button className="text-xs text-primary font-bold hover:underline">View History</button>
+                                    </div>
+                                    <div className="flex-1 overflow-y-auto p-5 flex flex-col gap-4">
+                                        {/* Flag Item 1 */}
+                                        <div className="flex items-start gap-4 p-4 rounded-lg bg-slate-50 dark:bg-slate-800/30 hover:bg-white dark:hover:bg-slate-800 transition-all border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:shadow-md">
+                                            <div className="mt-0.5 shrink-0">
+                                                <span className="material-symbols-outlined text-red-500 bg-red-100 dark:bg-red-900/30 p-2 rounded-lg text-[20px] shadow-inner">warning</span>
+                                            </div>
+                                            <div className="flex-1">
+                                                <div className="flex items-center justify-between mb-1">
+                                                    <p className="text-sm font-bold text-slate-900 dark:text-white">Invalid/Cancelled GSTIN</p>
+                                                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400 uppercase tracking-widest border border-red-200 dark:border-red-800/50 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.3)]">Critical</span>
+                                                </div>
+                                                <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">Invoice <span className="font-mono font-medium text-slate-800 dark:text-slate-200 bg-slate-200 dark:bg-slate-700 px-1 rounded">INV-2023-895</span> uses a GSTIN that was cancelled 2 months ago.</p>
+                                                <div className="flex gap-4">
+                                                    <Link to="/validation" className="text-xs font-bold text-primary hover:text-blue-700 transition-colors flex items-center gap-1 group">
+                                                        Review Invoice <span className="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                                    </Link>
+                                                    <button className="text-xs font-bold text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Dismiss</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Flag Item 2 */}
+                                        <div className="flex items-start gap-4 p-4 rounded-lg bg-slate-50 dark:bg-slate-800/30 hover:bg-white dark:hover:bg-slate-800 transition-all border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:shadow-md">
+                                            <div className="mt-0.5 shrink-0">
+                                                <span className="material-symbols-outlined text-amber-500 bg-amber-100 dark:bg-amber-900/30 p-2 rounded-lg text-[20px] shadow-inner">calculate</span>
+                                            </div>
+                                            <div className="flex-1">
+                                                <div className="flex items-center justify-between mb-1">
+                                                    <p className="text-sm font-bold text-slate-900 dark:text-white">Tax Calculation Mismatch</p>
+                                                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400 uppercase tracking-widest border border-amber-200 dark:border-amber-800/50 shadow-[0_0_8px_rgba(245,158,11,0.2)]">Medium</span>
+                                                </div>
+                                                <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">Invoice <span className="font-mono font-medium text-slate-800 dark:text-slate-200 bg-slate-200 dark:bg-slate-700 px-1 rounded">INV-2023-891</span>: IGST applied instead of CGST/SGST for intrastate supply based on POS logic.</p>
+                                                <div className="flex gap-4">
+                                                    <Link to="/validation" className="text-xs font-bold text-primary hover:text-blue-700 transition-colors flex items-center gap-1 group">
+                                                        Review Calculation <span className="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                                    </Link>
+                                                    <button className="text-xs font-bold text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Dismiss</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Invoice Table (Draft Generator) */}
+                            <div className="bg-white dark:bg-[#1A2632] rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col">
+                                <div className="p-5 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                    <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                        <span className="material-symbols-outlined text-primary">table_view</span> GSTR-1 Draft Generator
+                                    </h3>
+                                    <div className="flex gap-3 w-full sm:w-auto">
+                                        <button onClick={handleDownloadCSV} className="flex-1 sm:flex-none flex items-center justify-center gap-2 rounded-lg h-9 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                                            <span className="material-symbols-outlined text-[18px]">download</span>
+                                            Download CSV
+                                        </button>
+                                        <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 rounded-lg h-9 px-4 bg-primary text-white text-sm font-bold hover:bg-blue-600 transition-colors shadow-sm">
+                                            <span className="material-symbols-outlined text-[18px]">rocket_launch</span>
+                                            Generate Draft
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-left border-collapse">
+                                        <thead>
+                                            <tr className="bg-slate-50 dark:bg-slate-800/50 text-xs font-bold text-slate-500 dark:text-slate-400 tracking-wider uppercase border-b border-slate-200 dark:border-slate-800">
+                                                <th className="p-4 w-12"><input type="checkbox" className="rounded border-slate-300 text-primary focus:ring-primary" defaultChecked /></th>
+                                                <th className="p-4">Invoice #</th>
+                                                <th className="p-4">Date</th>
+                                                <th className="p-4">Customer GSTIN</th>
+                                                <th className="p-4 text-right">Taxable Value</th>
+                                                <th className="p-4 text-right">Tax (IGST/CGST)</th>
+                                                <th className="p-4 text-center">Status</th>
+                                                <th className="p-4 text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="text-sm divide-y divide-slate-200 dark:divide-slate-800">
+                                            <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors group">
+                                                <td className="p-4"><input type="checkbox" className="rounded border-slate-300 text-primary focus:ring-primary" defaultChecked /></td>
+                                                <td className="p-4 font-bold text-slate-900 dark:text-white">INV-2023-890</td>
+                                                <td className="p-4 text-slate-600 dark:text-slate-400">20 Oct 2023</td>
+                                                <td className="p-4 font-mono text-slate-600 dark:text-slate-400">27AABCT1234A1Z5</td>
+                                                <td className="p-4 text-right font-medium">₹ 1,50,000.00</td>
+                                                <td className="p-4 text-right font-medium text-slate-500">₹ 27,000.00</td>
+                                                <td className="p-4 text-center">
+                                                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400 uppercase">Validated</span>
+                                                </td>
+                                                <td className="p-4 text-center">
+                                                    <button className="text-slate-400 hover:text-primary transition-colors"><span className="material-symbols-outlined text-[18px]">more_vert</span></button>
+                                                </td>
+                                            </tr>
+                                            {/* Flagged Row */}
+                                            <tr className="bg-red-50/50 dark:bg-red-900/10 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors group">
+                                                <td className="p-4"><input type="checkbox" className="rounded border-slate-300 text-primary focus:ring-primary" /></td>
+                                                <td className="p-4 font-bold text-red-600 dark:text-red-400">INV-2023-891</td>
+                                                <td className="p-4 text-slate-600 dark:text-slate-400">21 Oct 2023</td>
+                                                <td className="p-4 font-mono text-slate-600 dark:text-slate-400">29XYZE9876L1Z2</td>
+                                                <td className="p-4 text-right font-medium">₹ 45,000.00</td>
+                                                <td className="p-4 text-right font-medium text-red-500 cursor-help" title="Mismatch with HSN rate">₹ 5,400.00</td>
+                                                <td className="p-4 text-center">
+                                                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400 uppercase">Flagged</span>
+                                                </td>
+                                                <td className="p-4 text-center">
+                                                    <button
+                                                        onClick={() => navigate('/validation')}
+                                                        className="text-primary hover:text-blue-700 text-xs font-bold transition-colors"
+                                                    >Review</button>
+                                                </td>
+                                            </tr>
+                                            {/* Validated Rows */}
+                                            <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors group">
+                                                <td className="p-4"><input type="checkbox" className="rounded border-slate-300 text-primary focus:ring-primary" defaultChecked /></td>
+                                                <td className="p-4 font-bold text-slate-900 dark:text-white">INV-2023-892</td>
+                                                <td className="p-4 text-slate-600 dark:text-slate-400">22 Oct 2023</td>
+                                                <td className="p-4 font-mono text-slate-600 dark:text-slate-400">07BBDPY4321P1Z9</td>
+                                                <td className="p-4 text-right font-medium">₹ 2,10,000.00</td>
+                                                <td className="p-4 text-right font-medium text-slate-500">₹ 37,800.00</td>
+                                                <td className="p-4 text-center">
+                                                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400 uppercase">Validated</span>
+                                                </td>
+                                                <td className="p-4 text-center">
+                                                    <button className="text-slate-400 hover:text-primary transition-colors"><span className="material-symbols-outlined text-[18px]">more_vert</span></button>
+                                                </td>
+                                            </tr>
+                                            <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors group">
+                                                <td className="p-4"><input type="checkbox" className="rounded border-slate-300 text-primary focus:ring-primary" defaultChecked /></td>
+                                                <td className="p-4 font-bold text-slate-900 dark:text-white">INV-2023-894</td>
+                                                <td className="p-4 text-slate-600 dark:text-slate-400">24 Oct 2023</td>
+                                                <td className="p-4 font-mono text-slate-600 dark:text-slate-400">27XYPE9876L1Z2</td>
+                                                <td className="p-4 text-right font-medium">₹ 1,50,000.00</td>
+                                                <td className="p-4 text-right font-medium text-slate-500">₹ 27,000.00</td>
+                                                <td className="p-4 text-center">
+                                                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400 uppercase">Validated</span>
+                                                </td>
+                                                <td className="p-4 text-center">
+                                                    <button className="text-slate-400 hover:text-primary transition-colors"><span className="material-symbols-outlined text-[18px]">more_vert</span></button>
+                                                </td>
+                                            </tr>
+                                            {/* Flagged Row */}
+                                            <tr className="bg-red-50/50 dark:bg-red-900/10 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors group">
+                                                <td className="p-4"><input type="checkbox" className="rounded border-slate-300 text-primary focus:ring-primary" /></td>
+                                                <td className="p-4 font-bold text-red-600 dark:text-red-400">INV-2023-895</td>
+                                                <td className="p-4 text-slate-600 dark:text-slate-400">24 Oct 2023</td>
+                                                <td className="p-4 font-mono text-slate-600 dark:text-slate-400">Cancelled GSTIN</td>
+                                                <td className="p-4 text-right font-medium">₹ 12,500.00</td>
+                                                <td className="p-4 text-right font-medium text-red-500 cursor-help" title="Invalid/Cancelled GSTIN detected">₹ 2,250.00</td>
+                                                <td className="p-4 text-center">
+                                                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400 uppercase">Flagged</span>
+                                                </td>
+                                                <td className="p-4 text-center">
+                                                    <button
+                                                        onClick={() => navigate('/validation')}
+                                                        className="text-primary hover:text-blue-700 text-xs font-bold transition-colors"
+                                                    >Review</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            {/* AI Advisory Banner */}
+                            <div className="mt-4 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl p-6 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-lg relative overflow-hidden">
+                                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                                <div className="flex items-start gap-4 relative z-10 w-full">
+                                    <div className="bg-white/20 p-2 rounded-lg shrink-0">
+                                        <span className="material-symbols-outlined text-white text-3xl">auto_awesome</span>
+                                    </div>
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <h3 className="text-white font-bold text-lg">AI Assistant Beta</h3>
+                                            <span className="px-2 py-0.5 bg-yellow-400 text-yellow-900 text-[10px] font-bold uppercase rounded-full tracking-wide">Coming Soon</span>
+                                        </div>
+                                        <p className="text-blue-100 text-sm max-w-2xl leading-relaxed">
+                                            Our next update will introduce automated AI-driven replies to tax notices and intelligent tax saving recommendations based on your input claims.
+                                        </p>
+                                    </div>
+                                    <button onClick={() => navigate('/contact')} className="hidden sm:flex self-center px-4 py-2 bg-white text-indigo-700 font-bold text-sm rounded-lg hover:bg-blue-50 transition-colors shadow-sm whitespace-nowrap">
+                                        Join Waitlist
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Footer */}
+                            <div className="mt-8 text-center border-t border-slate-200 dark:border-slate-800 pt-6 pb-2">
+                                <p className="text-xs text-slate-500 dark:text-slate-500">
+                                    &copy; 2023 GSTify.AI. All operations are logged. <Link to="/contact" className="text-primary hover:underline ml-2">Help &amp; Support</Link>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    );
+};
+
+export default FraudDetection;
