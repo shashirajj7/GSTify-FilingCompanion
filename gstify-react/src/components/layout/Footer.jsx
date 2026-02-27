@@ -64,7 +64,7 @@ const Footer = () => {
                         <div className="flex items-center gap-2 mb-4 md:mb-0">
                             <img src="/logo.png" alt="GSTify.AI Logo" className="w-6 h-6 object-contain" />
                             <span className="font-bold text-lg tracking-tight text-t_navy">GSTify.AI</span>
-                            <span className="text-sm text-gray-400 ml-4">&copy; 2023. All rights reserved.</span>
+                            <span className="text-sm text-gray-400 ml-4">&copy; 2026. All rights reserved.</span>
                         </div>
                         <div className="flex space-x-4 text-gray-400">
                             <Link to="/" className="hover:text-t_navy transition-colors"><span className="material-symbols-outlined">language</span></Link>

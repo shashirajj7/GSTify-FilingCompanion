@@ -57,21 +57,21 @@ const Contact = () => {
                                     <span className="material-symbols-outlined text-primary text-2xl mt-0.5">location_on</span>
                                     <div>
                                         <h4 className="font-semibold text-white">Office</h4>
-                                        <p className="text-blue-200 text-sm mt-1 leading-relaxed">123 Tech Park, Phase 2<br />Koramangala, Bengaluru<br />Karnataka 560034</p>
+                                        <p className="text-blue-200 text-sm mt-1 leading-relaxed">Institute of Aeronautical Engineering, Block 2<br />Dundigal, Hyderabad<br />Telangana 500043</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-4">
                                     <span className="material-symbols-outlined text-primary text-2xl mt-0.5">mail</span>
                                     <div>
                                         <h4 className="font-semibold text-white">Email</h4>
-                                        <p className="text-blue-200 text-sm mt-1">support@gstify.ai<br />sales@gstify.ai</p>
+                                        <p className="text-blue-200 text-sm mt-1">xxxx@iare.ac.in<br />xxxx@iare.ac.in</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-4">
                                     <span className="material-symbols-outlined text-primary text-2xl mt-0.5">call</span>
                                     <div>
                                         <h4 className="font-semibold text-white">Phone</h4>
-                                        <p className="text-blue-200 text-sm mt-1">Mon-Fri from 9am to 6pm<br />+91 800 123 4567</p>
+                                        <p className="text-blue-200 text-sm mt-1">Mon-Fri from 9am to 6pm<br />+91 800 123 4XXX</p>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@ const Contact = () => {
                                     <input
                                         type="text"
                                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-colors text-sm"
-                                        placeholder="John"
+                                        placeholder="First Name"
                                     />
                                 </div>
                                 <div>
@@ -100,7 +100,7 @@ const Contact = () => {
                                     <input
                                         type="text"
                                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-colors text-sm"
-                                        placeholder="Doe"
+                                        placeholder="Last Name"
                                     />
                                 </div>
                             </div>
@@ -110,7 +110,7 @@ const Contact = () => {
                                 <input
                                     type="email"
                                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-colors text-sm"
-                                    placeholder="john@company.com"
+                                    placeholder="example@company.com"
                                 />
                             </div>
 
@@ -150,7 +150,7 @@ const Contact = () => {
             {/* Footer Light */}
             <footer className="bg-white border-t border-gray-200 py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500">
-                    &copy; 2023 GSTify.AI. All rights reserved.
+                    &copy; 2026 GSTify.AI. All rights reserved.
                 </div>
             </footer>
         </div>
